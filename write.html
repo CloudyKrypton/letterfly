@@ -4,7 +4,7 @@
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Letterfly</title>
+        <title>Write - Letterfly</title>
         <link rel="stylesheet" href="dashboard.css">
         <link rel="icon" type="image/x-icon" href="favicon.ico"/>
         <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -16,15 +16,22 @@
         <div id="header">
             <img src="images/logo.png" width="100px" id="blirb">
         </div>
-        <div id="writeContent">
-            <div id="editor">
-                <p>Hello World!</p>
-                <p><br /></p>
+        <div id="pageItems">
+            <div id="writeContent">
+                <div id="editor">
+                    <p>[Write your letter here~]</p>
+                    <p><br /></p>
+                </div>
             </div>
         </div>
-        <button id="send" onclick="sendLetter()">
-            Send
-        </button>
+        <div id="sendContainer">
+            <button id="send" onclick="sendLetter()">
+                Send
+            </button>
+            <button id="backHome" onclick="window.location.href='dashboard.html';">
+                Back to Dashboard
+            </button>
+        </div>
 
         <script src="https://cdn.jsdelivr.net/npm/quill@2.0.3/dist/quill.js"></script>
         <script>
