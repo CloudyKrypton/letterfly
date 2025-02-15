@@ -5,27 +5,33 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Letterfly</title>
-        <link rel="stylesheet" href="main.css">
+        <link rel="stylesheet" href="dashboard.css">
         <link rel="icon" type="image/x-icon" href="favicon.ico"/>
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+        <link href="https://cdn.jsdelivr.net/npm/quill@2.0.3/dist/quill.snow.css" rel="stylesheet" />
     </head>
     <body>
-        <div id="content">Login
-
-            <div class="container">
-                <input type="text" placeholder="Username" name="uname" id="username" required>
-            
-                <input type="password" placeholder="Password" name="psw" id="password" required>
-                <span class="left">
-                    <button type="submit" class="submit" onclick="validateLogin()">SIGN IN
-                    </button>
-                    <span id="signup"><a href="signup.html">Create account</a></span>
-                </span>
-            </div>
-
+        <div id="header">
+            <img src="images/logo.png" width="100px" id="blirb">
         </div>
-        <script src="script.js"></script>
+        <div id="writeContent">
+            <div id="editor">
+                <p>Hello World!</p>
+                <p><br /></p>
+            </div>
+        </div>
+        <button id="send" onclick="sendLetter()">
+            Send
+        </button>
+
+        <script src="https://cdn.jsdelivr.net/npm/quill@2.0.3/dist/quill.js"></script>
+        <script>
+            const quill = new Quill('#editor', {
+              theme: 'snow'
+            });
+        </script>
+        <script src="write.js"></script>
     </body>
 </html>
