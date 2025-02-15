@@ -1,5 +1,30 @@
+html, body {
+    margin: 0;
+    padding: 0;
+  }
+
 body {
     background-color: #fefcf5;
+    display: flex;
+    gap: 100px;
+}
+
+#info {
+    background-color:#f8eed1;
+    height: 100vh;
+    padding-right: 80px;
+    padding-left: 80px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#intro {
+    font-family: "Poppins", serif;
+    font-weight: 600;
+    font-style: normal;
+    font-size: 22px;
+    color: #945f3b;
 }
 
 #content {
@@ -34,6 +59,8 @@ input[type=text], input[type=password] {
     box-sizing: border-box;
     border-radius: 8px;
     background-color: #fefcf5;
+    font-size: 18px;
+    font-family: "Poppins", serif;
 }
 
 .left {
@@ -44,6 +71,8 @@ input[type=text], input[type=password] {
     display: flex;
     flex-direction: row;
     gap: 120px;
+    justify-content: center;
+    align-content: center;
 }
 
 .submit {
@@ -71,7 +100,6 @@ button:hover {
     display: flex;
     justify-content: center;
     align-items: center;
-    padding-top: 17px;
     font-weight: 450;
 }
 

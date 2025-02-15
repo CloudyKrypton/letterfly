@@ -202,3 +202,7 @@ button:hover {
     padding-top: 8px;
     padding-bottom: 8px;
 }
+
+#footer {
+    height: 100px;
+}
