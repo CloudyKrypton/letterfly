@@ -53,7 +53,7 @@ const languagesArray = [
       addLanguageToList(language, "read");
       languageSelect.value = ""; // Reset select
     } else if (!language) {
-      alert("Please select a language you read.");
+      alert("Select a language you want to read letters in first!");
     }
   });
   
@@ -84,16 +84,12 @@ const languagesArray = [
   function addLanguageToList(language, formType) {
     const languageList = document.getElementById(`language-list-${formType}`);
     
-    const li = document.createElement("li");
-    li.textContent = language;
-    
-    // Add a remove button next to the language
-    const removeBtn = document.createElement("button");
-    removeBtn.textContent = "Remove";
-    removeBtn.onclick = function() {
-      languageList.removeChild(li);
+    const langButton = document.createElement("button");
+    langButton.textContent = language;
+
+    langButton.onclick = function() {
+      languageList.removeChild(langButton);
     };
     
-    li.appendChild(removeBtn);
-    languageList.appendChild(li);
+    languageList.appendChild(langButton);
   }
