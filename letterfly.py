@@ -112,16 +112,16 @@ def send_letter():
 
     conn = connect_db(DB_NAME, DB_USER, DB_PASSWORD, DB_HOST, DB_PORT)
     if not conn:
-        return jsonify({"error": "Could not connect to the database."}), 500
+        return jsonify({"status": "error", "message": "Could not connect to the database."}), 500
     letter_id = insert_letter(conn, content, language, session['username'])
     if not letter_id:
         conn.close()
-        return jsonify({"error": "Could not insert letter."}), 500
-    if not send_letter(conn, letter_id, recipient):
+        return jsonify({"status": "error", "message": "Could not insert letter."}), 500
+    if not send_letter_to_recipient(conn, letter_id, recipient):
         conn.close()
-        return jsonify({"error": "Could not send letter."}), 500
+        return jsonify({"status": "error", "message": "Could not send letter."}), 500
     conn.close()
-    return jsonify({"success": "Letter sent successfully."})
+    return jsonify({"status": "success", "message": "Letter sent successfully."})
 
 @app.route('/read', methods=['GET'])
 def read():
@@ -135,23 +135,24 @@ def read():
     writer = letter[3]
     writer_name = get_user(conn, writer)[2]
     html_content = letter[1]
-    print(target_lang)
     if target_lang:
         html_content = translate_html(html_content, target_lang)
-    print(html_content)
     conn.close()
     return render_template('read.html', sender=writer_name, recipient=session['name'], content=html_content)
 
 @app.route('/read_new')
 def read_new():
+    print("hi")
     if len(session['unread_letters']) == 0:
-        return jsonify({"error": "No new letters."}), 404
+        return jsonify({"status": "error", "message": "No new letters."}), 404
+    l = len(session['unread_letters'])
     letter_id, time_sent = session['unread_letters'].pop()
+    assert(len(session['unread_letters']) == l - 1)
     conn = connect_db(DB_NAME, DB_USER, DB_PASSWORD, DB_HOST, DB_PORT)
     if not conn:
-        return jsonify({"error": "Could not connect to the database."}), 500
+        return jsonify({"status": "error", "message": "Could not connect to the database."}), 500
     # Mark letter as read
-    update_letter(conn, letter_id, status='read')
+    update_letter_status(conn, letter_id, session['username'], status='read')
     conn.close()
     session['current_letter'] = letter_id
     # Redirect to read page

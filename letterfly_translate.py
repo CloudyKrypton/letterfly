@@ -16,13 +16,12 @@ def translate_html(html, target_lang):
     translator = Translator()
 
     async def translate_text(text):
-        return await translator.translate(text, dest='ja')
+        return await translator.translate(text, dest=target_lang)
     
     async def process_translation():
         for element in soup.find_all(string=True):
             translated = await translate_text(element)
             element.replace_with(translated.text)
-        print(str(soup))
         return str(soup)
 
     return asyncio.run(process_translation())  # Run the async function

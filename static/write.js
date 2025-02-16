@@ -1,12 +1,8 @@
-let html = "";
-let text = "";
-let recipient = "";
-
 function sendLetter() {
-    html = quill.getSemanticHTML(0);
-    text = quill.getText(0);
-    console.log(text);
+    // Storing data
+    sessionStorage.setItem('html', quill.getSemanticHTML(0));
 
+    // Redirect to send page
     window.location.href = "/send";
 }
 
@@ -43,29 +39,8 @@ function populateFriends(selectId) {
 
   //////////////////////////////
 
-  function enterUser() {
-    // Get the values from the input fields
-    var username = document.getElementById("username").value;
-  
-    // Check if the fields are empty
-    if (username === "") {
-      alert("Please enter a userID to send your letter to!");
-      return;
-    }
-
-    recipient = username;
-  
-    // // Simulate a successful login (you could connect to a backend API here)
-    // if (username === "admin") {
-    //   // Redirect to a new page after successful login (optional)
-    //   finalSend();
-    // } else {
-    //   alert("Invalid username.");
-    // }
-}
-
 function openLetter() {
-  recipient = "open";
+    recipient = "open";
 }
 
 document.getElementById("send-friend-btn").addEventListener("click", async function(event) {
@@ -77,7 +52,7 @@ document.getElementById("send-friend-btn").addEventListener("click", async funct
   };
 
   try {
-    const response = await fetch("http://127.0.0.1:5000/submit_signup", {
+    const response = await fetch("http://127.0.0.1:5000/send_letter", {
         method: "POST",
         headers: {
             "Content-Type": "application/json"
@@ -99,6 +74,18 @@ document.getElementById("send-friend-btn").addEventListener("click", async funct
 
 document.getElementById("enter-user-btn").addEventListener("click", async function(event) {
   event.preventDefault();  // Prevent form from reloading the page
+  const html = sessionStorage.getItem('html');
+
+  // Get the values from the input fields
+  var username = document.getElementById("username").value;
+  
+  // Check if the fields are empty
+  if (username === "") {
+      alert("Please enter a userID to send your letter to!");
+      return;
+  }
+
+  recipient = username;
 
   const formData = {
       content: html,
@@ -106,7 +93,7 @@ document.getElementById("enter-user-btn").addEventListener("click", async functi
   };
 
   try {
-    const response = await fetch("http://127.0.0.1:5000/submit_signup", {
+    const response = await fetch("http://127.0.0.1:5000/send_letter", {
         method: "POST",
         headers: {
             "Content-Type": "application/json"
@@ -120,10 +107,10 @@ document.getElementById("enter-user-btn").addEventListener("click", async functi
           finalSend();
 
         } else {
-            console.error("Signup failed:", data.message);  // Handle error message
+            console.error("Send failed:", data.message);  // Handle error message
         }
-      } catch (error) {
-        console.error("Error:", error);
+  } catch (error) {
+          console.error("Error:", error);
       }
 });
 
@@ -136,7 +123,7 @@ document.getElementById("open-letter-btn").addEventListener("click", async funct
   };
 
   try {
-    const response = await fetch("http://127.0.0.1:5000/submit_signup", {
+    const response = await fetch("http://127.0.0.1:5000/send_letter", {
         method: "POST",
         headers: {
             "Content-Type": "application/json"

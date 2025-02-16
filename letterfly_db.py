@@ -123,21 +123,13 @@ def insert_letter(conn, content, language, writer):
     finally:
         cursor.close()
 
-def update_letter(conn, letter_id, content=None, language=None, status=None):
+def update_letter_status(conn, letter_id, recipient, status):
     """Update a letter's content and language. Returns True on success, False on failure."""
-    if not (content or language or status):
-        return True
     try:
         cursor = conn.cursor()
-        if content:
-            UPDATE_LETTER_CONTENT = """UPDATE Letter SET content = %s WHERE letter_id = %s;"""
-            cursor.execute(UPDATE_LETTER_CONTENT, (content, letter_id))
-        if language:
-            UPDATE_LETTER_LANGUAGE = """UPDATE Letter SET language = %s WHERE letter_id = %s;"""
-            cursor.execute(UPDATE_LETTER_LANGUAGE, (language, letter_id))
-        if status:
-            UPDATE_LETTER_STATUS = """UPDATE Letter SET status = %s WHERE letter_id = %s;"""
-            cursor.execute(UPDATE_LETTER_STATUS, (status, letter_id))
+        UPDATE_LETTER_STATUS = """UPDATE SentTo SET status = %s
+                                  WHERE letter = %s AND recipient = %s;"""
+        cursor.execute(UPDATE_LETTER_STATUS, (status, letter_id, recipient))
         conn.commit()
         return True
     except Exception as e:
@@ -198,7 +190,7 @@ def get_letters(conn, username, status=None):
     finally:
         cursor.close()
 
-def send_letter(conn, letter_id, recipient):
+def send_letter_to_recipient(conn, letter_id, recipient):
     """Send a letter to a recipient. Returns True on success, False on failure."""
     try:
         cursor = conn.cursor()
