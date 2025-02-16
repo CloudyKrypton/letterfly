@@ -141,13 +141,13 @@ button:hover {
     content: ' →';
     opacity: 0;  /* Initially hidden */
     position: absolute;
-    right: 110px; /* Position it just outside */
+    right: 60px; /* Position it just outside */
     transition: opacity 0.3s ease, right 0.3s ease; /* Animation */
 }
 
 #explore:hover::after {
     opacity: 1;  /* Show the arrow */
-    right: 100px; /* Move the arrow inside the button */
+    right: 50px; /* Move the arrow inside the button */
 }
 
 #explore {

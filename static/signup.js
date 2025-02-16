@@ -102,7 +102,12 @@ document.getElementById("cab").addEventListener("click", async function(event) {
       });
   
         const data = await response.json();
-          console.log(data.message);  // Show success or error message
+          if (data.status === "success") {
+            console.log(data.message);  // Show success message
+            window.location.href = "/letterfly";  // Redirect after successful signup
+          } else {
+              console.error("Signup failed:", data.message);  // Handle error message
+          }
         } catch (error) {
           console.error("Error:", error);
         }
