@@ -1,9 +1,20 @@
-from flask import Flask, jsonify, render_template, request, session, redirect, url_for
+from flask import Flask, jsonify, render_template, request, redirect, url_for
+from flask_cors import CORS
 from letterfly_db import *
+from letterfly_translate import *
 import os
 
 app = Flask(__name__, static_url_path='/static')
-app.secret_key = os.getenv("SECRET_KEY")
+CORS(app)
+session = {'logged_in': False,
+           'username': None, 
+           'name': None, 
+           'reads_in': None, 
+           'writes_in': None, 
+           'unread_letters': None, 
+           'bottled_letters': None, 
+           'read_letters': None}
+
 
 DB_NAME = os.getenv("DB_NAME")
 DB_USER = os.getenv("DB_USER")
@@ -21,23 +32,21 @@ def submit_login():
     data = request.get_json()
     username = data.get('username')
     password = data.get('password')
-
     # Database connection
     conn = connect_db(DB_NAME, DB_USER, DB_PASSWORD, DB_HOST, DB_PORT)
     if not conn:
-        return jsonify({"error": "Could not connect to the database."}), 500  # Internal Server Error
+        return jsonify({"status": "error", "message": "Could not connect to the database."}), 500  # Internal Server Error
 
     user = get_user(conn, username)
     if not user:
-        return jsonify({"error": "User not found."}), 404  # Not Found
+        return jsonify({"status": "error", "message": "User not found."}), 404  # Not Found
 
     if password != user[1]:
-        return jsonify({"error": "Incorrect password."}), 401  # Unauthorized
+        return jsonify({"status": "error", "message": "Incorrect password."}), 401  # Unauthorized
 
-    # Store session data (if using sessions)
+    session['logged_in'] = True
     session['username'] = username
-
-    return redirect(url_for("dashboard"))  # Redirect user after login
+    return jsonify({"status": "success", "message": f"Login successful! Welcome, {session['username']}."})
     
 @app.route('/signup')
 def signup():
@@ -52,11 +61,23 @@ def submit_signup():
     reads_in = data.get('reads_in')
     writes_in = data.get('writes_in')
 
+    # Database connection
+    conn = connect_db(DB_NAME, DB_USER, DB_PASSWORD, DB_HOST, DB_PORT)
+    if not conn:
+        return jsonify({"status": "error", "message": "Could not connect to the database."}), 500
+
+    # Try inserting user into the database
+    if not insert_user(conn, username, password, name, reads_in, writes_in):
+        return jsonify({"status": "error", "message": "Could not insert user."}), 500
+
+    # Return success response
+    return jsonify({"status": "success", "message": "Signup successful!"})
+
 @app.route('/dashboard')
 def dashboard():
-    username = session.get('username')
-    # if not username:
-    #     return redirect(url_for('letterfly'))
+    if not session['logged_in']:
+        return redirect(url_for('letterfly'))
+    username = session['username']
     conn = connect_db(DB_NAME, DB_USER, DB_PASSWORD, DB_HOST, DB_PORT)
     if not conn:
         return jsonify({"error": "Could not connect to the database."}), 500
@@ -83,7 +104,7 @@ def send_letter():
     writer = session['username']
     content = data.get('content')
     # language = data.get('language')
-    language = 'English'
+    language = detect_lang(content)
     recipient = data.get('recipient')
 
     conn = connect_db(DB_NAME, DB_USER, DB_PASSWORD, DB_HOST, DB_PORT)
@@ -99,8 +120,9 @@ def send_letter():
 
     return jsonify({"success": "Letter sent successfully."})
 
-@app.route('/read')
+@app.route('/read', methods=['GET'])
 def read():
+    target_lang = request.args.get('target_lang')
     letter_id, time_sent = session['unread_letters'].pop()
     conn = connect_db(DB_NAME, DB_USER, DB_PASSWORD, DB_HOST, DB_PORT)
     if not conn:
@@ -109,14 +131,21 @@ def read():
     update_letter(conn, letter_id, status='read')
     # Get letter info
     letter = get_letter(conn, letter_id)
-    content = letter[1]
     writer = letter[3]
     writer_name = get_user(conn, writer)[2]
-
-    return render_template('read.html', from_name=writer_name, to_name=session['name'], content=content)
+    html_content = letter[1]
+    if target_lang:
+        html_content = translate_html(html_content, target_lang)
+    return render_template('read.html', from_name=writer_name, to_name=session['name'], content=html_content)
 
 
 if __name__ == '__main__':
-    app.run(host="localhost", port=5000)
+    conn = connect_db(DB_NAME, DB_USER, DB_PASSWORD, DB_HOST, DB_PORT)
+    if not conn:
+        print("Exiting...")
+        exit()
+    init_db(conn)
+    conn.close()
+    app.run(host="localhost", port=5000, debug=True)
     
 

@@ -11,6 +11,8 @@ def connect_db(db_name, db_user, db_password, db_host, db_port):
             port=db_port
         )
         print(f"Connected to {db_name} successfully as {db_user}!")
+        cur = conn.cursor()
+        cur.execute("SET search_path TO letterfly_schema;")
         return conn
     except Exception as e:
         print(f"Error connecting to the database: {e}")
@@ -30,6 +32,7 @@ def init_db(conn, testing=False):
             cursor.execute(test_inserts)
 
         conn.commit()
+        print("Database initialized.")
         return True
     except Exception as e:
         print(f"Error initializing the database: {e}")
