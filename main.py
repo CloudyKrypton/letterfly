@@ -25,7 +25,7 @@ def write():
     return render_template('write.html')
 
 @app.route('/read')
-def write():
+def read():
     return render_template('read.html')
 
 if __name__ == '__main__':

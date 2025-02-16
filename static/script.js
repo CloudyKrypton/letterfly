@@ -1,3 +1,5 @@
+///// Login
+
 function validateLogin() {
     // Get the values from the input fields
     var username = document.getElementById("username").value;
@@ -18,13 +20,42 @@ function validateLogin() {
     }
 }
 
+document.getElementById("login").addEventListener("submit", async function(event) {
+  event.preventDefault();  // Prevent form from reloading the page
+
+  const formData = {
+      username: document.getElementById("username").value,
+      password: document.getElementById("password").value,
+  };
+
+  try {
+    const response = await fetch("http://127.0.0.1:5000/submit_login", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(formData)
+    });
+
+      const data = await response.json();
+        console.log(data.message);  // Show success or error message
+      } catch (error) {
+        console.error("Error:", error);
+      }
+});
+
+///// Sign Up
+
 // Array of languages (you can expand this array as needed)
 const languagesArray = [
     "English", "Spanish", "French", "German", "Chinese", "Arabic", "Italian", 
     "Russian", "Portuguese", "Japanese", "Korean", "Hindi", "Dutch", "Swedish", 
     "Turkish", "Polish", "Greek", "Hebrew", "Romanian", "Hungarian", "Czech"
   ];
-  
+
+let chosenReadLanguages = []
+let chosenWriteLanguages = []
+
   // Function to populate the select dropdown with languages for both forms
   function populateLanguages(selectId) {
     const languageSelect = document.getElementById(selectId);
@@ -51,6 +82,7 @@ const languagesArray = [
   
     if (language && !isLanguageAdded(language, "read")) {
       addLanguageToList(language, "read");
+      chosenReadLanguages.push(language)
       languageSelect.value = ""; // Reset select
     } else if (!language) {
       alert("Select a language you want to read letters in first!");
@@ -63,6 +95,7 @@ const languagesArray = [
   
     if (language && !isLanguageAdded(language, "write")) {
       addLanguageToList(language, "write");
+      chosenWriteLanguages.push(language)
       languageSelect.value = ""; // Reset select
     } else if (!language) {
       alert("Please select a language you write in.");
@@ -80,7 +113,7 @@ const languagesArray = [
     }
     return false;
   }
-  
+
   function addLanguageToList(language, formType) {
     const languageList = document.getElementById(`language-list-${formType}`);
     
@@ -93,3 +126,30 @@ const languagesArray = [
     
     languageList.appendChild(langButton);
   }
+
+document.getElementById("cab").addEventListener("submit", async function(event) {
+    event.preventDefault();  // Prevent form from reloading the page
+  
+    const formData = {
+        username: document.getElementById("username").value,
+        password: document.getElementById("password").value,
+        name: document.getElementById("nickname").value,
+        reads_in: chosenReadLanguages,
+        writes_in: chosenWriteLanguages
+    };
+  
+    try {
+      const response = await fetch("http://127.0.0.1:5000/submit_signup", {
+          method: "POST",
+          headers: {
+              "Content-Type": "application/json"
+          },
+          body: JSON.stringify(formData)
+      });
+  
+        const data = await response.json();
+          console.log(data.message);  // Show success or error message
+        } catch (error) {
+          console.error("Error:", error);
+        }
+  });
