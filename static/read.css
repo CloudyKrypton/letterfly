@@ -76,6 +76,28 @@ button:hover {
     box-shadow: 4px 5px 0px rgba(0, 0, 0, 0.3);
   }
 
+#sendContainer {
+    padding-top: 30px;
+    padding-left: 15vw;
+    display: flex;
+    gap: 51.5%;
+}
+
+#send {
+    border-radius: 30px;
+    border: 2px solid #1e1e1e;
+    background-color: #1e1e1e;
+    color: white;
+    font-family: "Poppins", serif;
+    font-weight: 600;
+    font-style: normal;
+    font-size: medium;
+    padding-left: 25px;
+    padding-right: 25px;
+    padding-top: 8px;
+    padding-bottom: 8px;
+}
+
 #backHome {
     border-radius: 30px;
     border: 2px solid #1e1e1e;

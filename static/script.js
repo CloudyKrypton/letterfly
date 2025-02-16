@@ -14,7 +14,6 @@ function validateLogin() {
     // Simulate a successful login (you could connect to a backend API here)
     if (username === "admin" && password === "password123") {
       // Redirect to a new page after successful login (optional)
-      window.location.href = "/dashboard";
     } else {
       alert("Invalid username or password.");
     }
@@ -37,9 +36,14 @@ document.getElementById("login").addEventListener("click", async function(event)
         body: JSON.stringify(formData)
     });
 
-      const data = await response.json();
-        console.log(data.message);  // Show success or error message
-      } catch (error) {
-        console.error("Error:", error);
+    const data = await response.json();
+      if (data.status === "success") {
+        console.log(data.message);  // Show success message
+        window.location.href = "/letterfly";  // Redirect after successful signup
+      } else {
+          console.error("Signup failed:", data.message);  // Handle error message
       }
+    } catch (error) {
+      console.error("Error:", error);
+    }
 });
