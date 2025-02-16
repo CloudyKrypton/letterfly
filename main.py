@@ -24,5 +24,9 @@ def send():
 def write():
     return render_template('write.html')
 
+@app.route('/read')
+def write():
+    return render_template('read.html')
+
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=81)

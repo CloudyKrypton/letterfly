@@ -13,6 +13,17 @@
     </head>
 <body>
   <div id="header">
+    <div class="header-container2">
+      <div class="header-container">
+          <span>About Letterfly</span>
+          <span>Contact Us</span>
+      </div>
+      <div class="header-container">
+          <span>Support</span>
+          <span>FAQs</span>
+          <span>Getting Started</span>
+      </div>
+    </div>
     <img src="../static/images/logo.png" width="100px" id="blirb">
   </div>
   <div class="container">
@@ -65,9 +76,11 @@
       <ul id="language-list-write">
         <!-- List of added languages will appear here -->
       </ul>
+      <div style="height: 20px;"></div>
+      <button id="cab">CREATE</button>
     </div>
+  <div class="footer" style="height:100px"></div>
   </div>
-  <button id="cab">CREATE</button>
 
   <script src="{{ url_for('static', filename='script.js') }}"></script>
 </body>
