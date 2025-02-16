@@ -120,12 +120,21 @@ def insert_letter(conn, content, language, writer):
     finally:
         cursor.close()
 
-def update_letter(conn, letter_id, content, language):
+def update_letter(conn, letter_id, content=None, language=None, status=None):
     """Update a letter's content and language. Returns True on success, False on failure."""
+    if not (content or language or status):
+        return True
     try:
         cursor = conn.cursor()
-        UPDATE_LETTER = """UPDATE Letter SET content = %s, language = %s WHERE letter_id = %s;"""
-        cursor.execute(UPDATE_LETTER, (content, language, letter_id))
+        if content:
+            UPDATE_LETTER_CONTENT = """UPDATE Letter SET content = %s WHERE letter_id = %s;"""
+            cursor.execute(UPDATE_LETTER_CONTENT, (content, letter_id))
+        if language:
+            UPDATE_LETTER_LANGUAGE = """UPDATE Letter SET content = %s WHERE letter_id = %s;"""
+            cursor.execute(UPDATE_LETTER_LANGUAGE, (language, letter_id))
+        if status:
+            UPDATE_LETTER_STATUS = """UPDATE Letter SET content = %s WHERE letter_id = %s;"""
+            cursor.execute(UPDATE_LETTER_STATUS, (status, letter_id))
         conn.commit()
         return True
     except Exception as e:
@@ -169,10 +178,14 @@ def get_letters(conn, username, status=None):
     try:
         cursor = conn.cursor()
         if status:
-            GET_LETTERS = """SELECT letter, time_sent FROM SentTo WHERE recipient = %s AND status = %s;"""
+            GET_LETTERS = """SELECT letter, time_sent FROM SentTo
+                             WHERE recipient = %s AND status = %s
+                             ORDER BY time_sent DESC;"""
             cursor.execute(GET_LETTERS, (username, status))
         else:
-            GET_LETTERS = """SELECT letter, time_sent FROM SentTo WHERE recipient = %s;"""
+            GET_LETTERS = """SELECT letter, time_sent FROM SentTo
+                             WHERE recipient = %s
+                             ORDER BY time_sent DESC;"""
             cursor.execute(GET_LETTERS, (username,))
         letters = cursor.fetchall()
         return letters
