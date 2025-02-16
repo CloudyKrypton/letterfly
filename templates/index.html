@@ -5,7 +5,7 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Letterfly</title>
-        <link rel="stylesheet" href="main.css">
+        <link rel="stylesheet" href="{{ url_for('static', filename='main.css') }}">
         <link rel="icon" type="image/x-icon" href="favicon.ico"/>
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -14,7 +14,7 @@
     <body>
         <div id="info">
             <div style="padding-top: 80px;"></div>
-            <img src="images/logo.png" width="300">
+            <img src=../static/images/logo.png width="300">
             <div style="padding-top: 40px;"></div>
             <span id="intro">Write a letter.</span>
             <span id="intro">Learn a language.</span>
@@ -26,11 +26,11 @@
                 <span class="left">
                     <button type="submit" class="submit" onclick="validateLogin()">SIGN IN
                     </button>
-                    <span id="signup"><a href="signup.html">Create account</a></span>
+                    <span id="signup"><a href="{{ url_for('signup') }}">Create account</a></span>
                 </span>
             </div>
 
         </div>
-        <script src="script.js"></script>
+        <script src="{{ url_for('static', filename='script.js') }}"></script>
     </body>
 </html>
