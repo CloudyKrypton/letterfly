@@ -138,3 +138,18 @@ button:hover {
     align-items: flex-start;
     width: 420px;
 }
+
+#cab {
+    border-radius: 30px;
+    border: 2px solid #1e1e1e;
+    background-color: #1e1e1e;
+    color: white;
+    font-family: "Poppins", serif;
+    font-weight: 600;
+    font-style: normal;
+    font-size: medium;
+    padding-left: 35px;
+    padding-right: 35px;
+    padding-top: 15px;
+    padding-bottom: 15px;
+}
