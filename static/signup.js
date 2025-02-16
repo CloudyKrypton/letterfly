@@ -125,5 +125,5 @@ document.getElementById("cab").addEventListener("click", async function(event) {
       return;
     }
   
-    window.location.href = "/letterfly";
+    // window.location.href = "/letterfly";
   }

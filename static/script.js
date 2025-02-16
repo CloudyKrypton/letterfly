@@ -10,12 +10,13 @@ function validateLogin() {
       alert("Please fill in both fields.");
       return;
     }
-  
+
     // Simulate a successful login (you could connect to a backend API here)
-    if (username === "admin" && password === "password123") {
+    if (username == "" || password == "") {
       // Redirect to a new page after successful login (optional)
+      alert("Please fill in both fields.");
     } else {
-      alert("Invalid username or password.");
+      // window.location.href = "/dashboard";
     }
 }
 
