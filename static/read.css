@@ -76,14 +76,42 @@ button:hover {
     box-shadow: 4px 5px 0px rgba(0, 0, 0, 0.3);
   }
 
-#sendContainer {
+#form-container {
     padding-top: 30px;
-    padding-left: 15vw;
-    display: flex;
-    gap: 51.5%;
+    padding-left: 16vw;
 }
 
-#send {
+#button-container {
+    display: flex;
+    align-items: center;
+    gap: 32%;
+}
+
+#translate-container {
+    display: flex;
+    align-items: center;
+    gap: 30px;
+}
+
+#language-trans {
+    width: 250px;
+    height: 60px;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 2px solid #c4c2bc;
+    box-sizing: border-box;
+    border-radius: 8px;
+    background-color: white;
+    font-size: 18px;
+    font-family: "Poppins", serif;
+}
+
+#language-trans:hover {
+    cursor: pointer;
+}
+
+#translate-btn {
     border-radius: 30px;
     border: 2px solid #1e1e1e;
     background-color: #1e1e1e;

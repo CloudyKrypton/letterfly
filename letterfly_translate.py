@@ -1,5 +1,6 @@
 import asyncio
 from bs4 import BeautifulSoup
+import googletrans
 from googletrans import Translator
 
 def detect_lang(text):
@@ -21,6 +22,7 @@ def translate_html(html, target_lang):
         for element in soup.find_all(string=True):
             translated = await translate_text(element)
             element.replace_with(translated.text)
+        print(str(soup))
         return str(soup)
 
     return asyncio.run(process_translation())  # Run the async function
@@ -31,3 +33,9 @@ if __name__ == "__main__":
     print(translated_html)
     print(detect_lang(translated_html))
     print(detect_lang(html))
+    langs = googletrans.LANGUAGES
+    for key in langs:
+        langs[key] = langs[key].split(' ')[0].capitalize()
+
+    reversed_langs = {value: key for key, value in langs.items()}
+    print(reversed_langs)

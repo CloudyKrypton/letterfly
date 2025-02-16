@@ -133,10 +133,10 @@ def update_letter(conn, letter_id, content=None, language=None, status=None):
             UPDATE_LETTER_CONTENT = """UPDATE Letter SET content = %s WHERE letter_id = %s;"""
             cursor.execute(UPDATE_LETTER_CONTENT, (content, letter_id))
         if language:
-            UPDATE_LETTER_LANGUAGE = """UPDATE Letter SET content = %s WHERE letter_id = %s;"""
+            UPDATE_LETTER_LANGUAGE = """UPDATE Letter SET language = %s WHERE letter_id = %s;"""
             cursor.execute(UPDATE_LETTER_LANGUAGE, (language, letter_id))
         if status:
-            UPDATE_LETTER_STATUS = """UPDATE Letter SET content = %s WHERE letter_id = %s;"""
+            UPDATE_LETTER_STATUS = """UPDATE Letter SET status = %s WHERE letter_id = %s;"""
             cursor.execute(UPDATE_LETTER_STATUS, (status, letter_id))
         conn.commit()
         return True
