@@ -12,7 +12,7 @@ function validateLogin() {
     // Simulate a successful login (you could connect to a backend API here)
     if (username === "admin" && password === "password123") {
       // Redirect to a new page after successful login (optional)
-      window.location.href = "dashboard.html";
+      window.location.href = "/dashboard";
     } else {
       alert("Invalid username or password.");
     }
