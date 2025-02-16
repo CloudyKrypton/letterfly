@@ -120,12 +120,51 @@ button:hover {
     background-color: #bcc8bd;
 }
 
+#oldLetters::after {
+    content: ' →';
+    opacity: 0;  /* Initially hidden */
+    position: absolute;
+    right: 90px; /* Position it just outside */
+    transition: opacity 0.3s ease, right 0.3s ease; /* Animation */
+}
+
+#oldLetters:hover::after {
+    opacity: 1;  /* Show the arrow */
+    right: 80px; /* Move the arrow inside the button */
+}
+
 #oldLetters {
     background-color: #f79840;
 }
 
+#explore::after {
+    content: ' →';
+    opacity: 0;  /* Initially hidden */
+    position: absolute;
+    right: 110px; /* Position it just outside */
+    transition: opacity 0.3s ease, right 0.3s ease; /* Animation */
+}
+
+#explore:hover::after {
+    opacity: 1;  /* Show the arrow */
+    right: 100px; /* Move the arrow inside the button */
+}
+
 #explore {
     background-color: #b1bb84;
+}
+
+#write::after {
+    content: ' →';
+    opacity: 0;  /* Initially hidden */
+    position: absolute;
+    right: 120px; /* Position it just outside */
+    transition: opacity 0.3s ease, right 0.3s ease; /* Animation */
+}
+
+#write:hover::after {
+    opacity: 1;  /* Show the arrow */
+    right: 110px; /* Move the arrow inside the button */
 }
 
 #write {
@@ -221,4 +260,20 @@ button:hover {
 
 #footer {
     height: 100px;
+}
+
+.notif {
+    position: absolute;
+    top: 82vh;
+    left: 80vw;
+    z-index: 4;
+
+    border-radius: 30px;
+    /* border: 2px solid #1e1e1e; */
+    background-color: #ddc8fc;
+    color: black;
+    padding-left: 10px;
+    padding-right: 10px;
+    
+    font-size: 18px;
 }
