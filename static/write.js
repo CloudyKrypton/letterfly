@@ -1,6 +1,9 @@
+let html = "";
+let text = "";
+
 function sendLetter() {
-    const html = quill.getSemanticHTML(0);
-    const text = quill.getText(0);
+    html = quill.getSemanticHTML(0);
+    text = quill.getText(0);
     console.log(text);
 
     window.location.href = "/send";
@@ -31,7 +34,7 @@ function populateFriends(selectId) {
     const friend = friendSelect.value;
   
     if (friend) {
-      window.location.href = "/dashboard"
+      finalSend();
     } else if (!friend) {
       alert("Please choose a friend to send your letter to!");
     }
@@ -52,12 +55,17 @@ function populateFriends(selectId) {
     // Simulate a successful login (you could connect to a backend API here)
     if (username === "admin") {
       // Redirect to a new page after successful login (optional)
-      window.location.href = "/dashboard";
+      finalSend();
     } else {
       alert("Invalid username.");
     }
 }
 
-function openLetter() {
-    window.location.href = "/dashboard";
+function openLetter() { 
+  finalSend();
+}
+
+function finalSend() {
+  alert("Your letter has been sent!");
+  window.location.href = "/dashboard";
 }
