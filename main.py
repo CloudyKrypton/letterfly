@@ -28,5 +28,9 @@ def write():
 def read():
     return render_template('read.html')
 
+@app.route('/discover')
+def discover():
+    return render_template('discover.html')
+
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=81)

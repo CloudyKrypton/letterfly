@@ -1,0 +1,115 @@
+html, body {
+    margin: 0;
+    padding: 0;
+  }
+
+body {
+    background-color: #bec8bd;
+    font-family: "Poppins", serif;
+}
+
+#header {
+    height: 80px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    box-shadow: 0px 4px 0px rgba(0, 0, 0, 0.3);
+    background-color: #fefcf5;
+
+    top: 0;
+    position: -webkit-sticky; /* For Safari */
+    position: sticky;
+    z-index: 1000;
+}
+
+.header-container2 {
+    display: flex;
+    gap: 500px;
+    font-family: "Poppins", serif;
+    font-weight: 600;
+    font-style: normal;
+    font-size: medium;
+    color: #3d4043;
+}
+
+.header-container {
+    padding-top: 30px;
+    display: flex;
+    gap: 40px;
+}
+
+#blirb {
+    position: absolute;
+    padding-top: 10px;
+}
+
+.letters {
+    display: flex;
+    justify-content: center;
+    gap: 25px;
+    padding-top: 40px;
+}
+
+.letter {
+    width: 20vw;
+    border-width: 3px;
+    border-color: #5d3024;
+    border-radius: 8px;
+    border-style: solid;
+    padding: 4px;
+    background-color: #f8eed1;
+    height: 100%;
+    transition: box-shadow 0.3s ease-in-out;
+}
+
+.letter:hover {
+    cursor: pointer;
+    box-shadow: 2px 3px 0px rgba(0, 0, 0, 0.8);
+}
+
+.letter2 {
+    border-width: 3px;
+    border-color:#df8874;
+    border-radius: 8px;
+    border-style: solid;
+    padding: 2px;
+    background-color: #f8eed1;
+}
+
+.letter3 {
+    border-width: 3px;
+    border-color:#d4e5da;
+    border-radius: 8px;
+    border-style: solid;
+    padding: 10px;
+    background-color: #f8eed1;
+}
+
+.letterInfo {
+    font-family: "Poppins", serif;
+    font-weight: 600;
+    font-style: normal;
+    font-size: 36px;
+
+    text-align: center;
+    padding-top: 20px;
+}
+
+#backHome {
+    border-radius: 30px;
+    border: 2px solid #1e1e1e;
+    background-color: #1e1e1e;
+    color: white;
+    font-family: "Poppins", serif;
+    font-weight: 600;
+    font-style: normal;
+    font-size: medium;
+    padding-left: 25px;
+    padding-right: 25px;
+    padding-top: 8px;
+    padding-bottom: 8px;
+}
+
+button:hover {
+    cursor: pointer;
+}

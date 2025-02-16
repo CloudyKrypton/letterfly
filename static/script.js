@@ -16,7 +16,7 @@ function validateLogin() {
       // Redirect to a new page after successful login (optional)
       alert("Please fill in both fields.");
     } else {
-      // window.location.href = "/dashboard";
+      window.location.href = "/dashboard";
     }
 }
 
